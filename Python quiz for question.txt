@@ -1,0 +1,46 @@
+import random
+
+class Quiz:
+    def __init__(self, questions):
+        self.questions = questions
+        self.score = 0
+
+    def display_question(self, question):
+        print(question["question"])
+        for i, option in enumerate(question["options"], start=1):
+            print(f"{i}. {option}")
+        user_choice = input("Enter the number of your answer: ")
+        return int(user_choice)
+
+    def run(self):
+        random.shuffle(self.questions)
+        for question in self.questions:
+            user_choice = self.display_question(question)
+            if user_choice == question["answer"]:
+                print("Correct!\n")
+                self.score += 1
+            else:
+                print(f"Wrong! The correct answer was {question['options'][question['answer']-1]}\n")
+        print(f"You got {self.score}/{len(self.questions)} questions correct.")
+
+if __name__ == "__main__":
+    questions = [
+        {
+            "question": "What is the capital of France?",
+            "options": ["Berlin", "Madrid", "Paris", "Rome"],
+            "answer": 3,
+        },
+        {
+            "question": "Which planet is known as the Red Planet?",
+            "options": ["Mars", "Venus", "Jupiter", "Saturn"],
+            "answer": 1,
+        },
+        {
+            "question": "What is the largest mammal in the world?",
+            "options": ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+            "answer": 2,
+        },
+    ]
+
+    quiz = Quiz(questions)
+    quiz.run()
